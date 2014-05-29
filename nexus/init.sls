@@ -59,7 +59,7 @@ move-nexus-dist:
 /etc/init.d/nexus:
   file.managed:
     - mode: 755
-    - source: salt://nexus/nexus.init
+    - source: salt://nexus/files/nexus.init
     - template: jinja
     - context:
       nexus_home: {{ nexus.home }}
@@ -69,7 +69,7 @@ move-nexus-dist:
 {{ nexus.home }}/conf/nexus.properties:
   file.managed:
     - mode: 755
-    - source: salt://nexus/nexus.properties
+    - source: salt://nexus/files/nexus.properties
     - template: jinja
     - context:
       nexus_home: {{ nexus.home }}
