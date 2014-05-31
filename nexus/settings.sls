@@ -17,6 +17,8 @@
 {%- set piddir    = g.get('piddir', p.get('piddir', '/var/run/nexus')) %}
 {%- set username  = g.get('username', p.get('username', 'nexus')) %}
 {%- set port      = gc.get('port', pc.get('port', '8081')) %}
+{%- set server_name = gc.get('server_name', pc.get('server_name', grains.get('fqdn'))) %}
+
 {%- set source_url = g.get('source_url', p.get('source-url', 'http://www.sonatype.org/downloads/nexus-' + version + '-bundle.tar.gz')) %}
 
 {%- set nexus = {} %}
