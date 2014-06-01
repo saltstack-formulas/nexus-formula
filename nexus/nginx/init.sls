@@ -1,13 +1,7 @@
 nginx:
   pkg.installed
 
-# nexus comes with reasonable default config now
-# {{ nexus.home }}/conf/jetty.xml:
-#  file.managed:
-#    - source: salt://nexus/nginx/conf/jetty.xml
-#    - user: root
-#    - group: root
-#    - mode: 644
+{%- from 'nexus/settings.sls' import nexus with context %}
 
 /etc/nginx/conf.d/nexus.conf:
   file.managed:
