@@ -31,5 +31,6 @@
                           'source_url'     : source_url,
                           'home'           : home,
                           'real_home'      : real_home,
+                          'server_name'    : server_name,
                           'download_dir'   : '/tmp/nexus_download',
                      }) %}
