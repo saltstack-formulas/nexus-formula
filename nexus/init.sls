@@ -84,6 +84,6 @@ move-nexus-dist:
     - repl: wrapper.java.command={{ java.java_home }}/bin/java
 
 start-nexus-service:
-  service.enabled:
-    - running: true
+  service.running:
+    - enable: true
     - name: nexus
