@@ -16,6 +16,7 @@ Available states
     :local:
 
 ``nexus``
+---------
 
 Downloads the tarball in version nexus:version (currently defaults to 2.8.0) from sonatype configured as either a pillar or grain. 
 Then unpacks the archive into nexus:prefix (defaults to /srv/nexus).
