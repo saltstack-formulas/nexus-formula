@@ -40,8 +40,8 @@ unpack-nexus-tarball:
     - cwd: {{ nexus.download_dir }}
     - unless: test -d {{ nexus.home }}
     - require:
-      - file.directory: {{ nexus.prefix }}
-      - file.directory: {{ nexus.download_dir }}
+      - file: {{ nexus.prefix }}
+      - file: {{ nexus.download_dir }}
 
 {{ nexus.download_dir }}/sonatype_work:
   file.absent
