@@ -19,8 +19,8 @@ include:
 {{ nexus.workdir }}/nexus:
   file.directory:
     - makedirs: True
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.username }}
     - recurse:
       - user
       - group
@@ -28,8 +28,8 @@ include:
 {{ nexus.piddir }}:
   file.directory:
     - makedirs: True
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.username }}
     - recurse:
       - user
       - group
