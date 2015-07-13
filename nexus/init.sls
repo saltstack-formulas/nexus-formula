@@ -19,8 +19,8 @@ include:
 {{ nexus.workdir }}/nexus:
   file.directory:
     - makedirs: True
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.group }}
     - recurse:
       - user
       - group
@@ -28,8 +28,8 @@ include:
 {{ nexus.piddir }}:
   file.directory:
     - makedirs: True
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.group }}
     - recurse:
       - user
       - group
@@ -45,15 +45,15 @@ unpack-nexus-tarball:
 
 {{ nexus.real_home }}/logs:
   file.directory:
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.group }}
     - require:
       - cmd: unpack-nexus-tarball
 
 {{ nexus.real_home }}/tmp:
   file.directory:
-    - user: nexus
-    - group: nexus
+    - user: {{ nexus.username }}
+    - group: {{ nexus.group }}
     - require:
       - cmd: unpack-nexus-tarball
 

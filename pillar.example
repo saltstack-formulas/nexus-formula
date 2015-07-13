@@ -5,3 +5,4 @@ nexus:
   port: 8081
   piddir: /var/run/nexus
   username: nexus
+  group: nexus

@@ -16,6 +16,7 @@
 {%- set workdir   = g.get('workdir', p.get('workdir', '/srv/nexus/sonatype_work')) %}
 {%- set piddir    = g.get('piddir', p.get('piddir', '/var/run/nexus')) %}
 {%- set username  = g.get('username', p.get('username', 'nexus')) %}
+{%- set group     = g.get('group', p.get('group', 'nexus')) %}
 {%- set port      = gc.get('port', pc.get('port', '8081')) %}
 {%- set server_name = gc.get('server_name', pc.get('server_name', grains.get('fqdn'))) %}
 
@@ -27,6 +28,7 @@
                           'workdir'        : workdir,
                           'piddir'         : piddir,
                           'username'       : username,
+                          'group'          : group,
                           'port'           : port,
                           'source_url'     : source_url,
                           'home'           : home,
