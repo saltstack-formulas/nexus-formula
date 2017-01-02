@@ -9,7 +9,8 @@
 {%- set host = 'nexus' %}
 {%- endif %}
 
-{%- set version   = g.get('version', p.get('version', '2.8.0')) %}
+
+{%- set version   = g.get('version', p.get('version', '2.14.2-01')) %}
 {%- set prefix    = g.get('prefix', p.get('prefix', '/srv/nexus')) %}
 {%- set home      = prefix + '/nexus' %}
 {%- set real_home = home + '-' + version %}

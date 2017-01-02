@@ -38,24 +38,10 @@ unpack-nexus-tarball:
   cmd.run:
     - name: curl -L '{{ nexus.source_url }}' | tar xz
     - cwd: {{ nexus.download_dir }}
-    - unless: test -d {{ nexus.home }}
+    - unless: test -d {{ nexus.real_home }}
     - require:
       - file: {{ nexus.prefix }}
       - file: {{ nexus.download_dir }}
-
-{{ nexus.real_home }}/logs:
-  file.directory:
-    - user: {{ nexus.username }}
-    - group: {{ nexus.group }}
-    - require:
-      - cmd: unpack-nexus-tarball
-
-{{ nexus.real_home }}/tmp:
-  file.directory:
-    - user: {{ nexus.username }}
-    - group: {{ nexus.group }}
-    - require:
-      - cmd: unpack-nexus-tarball
 
 {{ nexus.download_dir }}/sonatype_work:
   file.absent
@@ -64,6 +50,16 @@ move-nexus-dist:
   cmd.run:
     - name: mv {{ nexus.download_dir }}/nexus-* {{ nexus.real_home }}
     - unless: test -d {{ nexus.home }}
+
+add-state-directories:
+  file.directory:
+    - names:
+      - {{ nexus.real_home }}/tmp
+      - {{ nexus.real_home }}/logs
+    - user: {{ nexus.username }}
+    - group: {{ nexus.group }}
+    - require:
+      - cmd: move-nexus-dist
 
 {{ nexus.home }}:
   file.symlink:
