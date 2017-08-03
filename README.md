@@ -27,9 +27,9 @@ Questions regarding "how to configure nexus" take a look at the sonatype documen
 
 ## States
 The default state is `nexus` this one will install, configure and creates a systemd entry for nexus.
-There is also `nexus.copylivedata` which will copy data from another host, to this local system.
+There is also `nexus.v3.copylivedata` which will copy data from another host, to this local system.
 
-### nexus.copylivedata
+### nexus.v3.copylivedata
 Needs an existing ssh key on the host system.
 
 ## Defaults
