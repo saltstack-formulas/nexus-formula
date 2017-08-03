@@ -4,7 +4,7 @@
 {% from "nexus/map.jinja" import nexus with context %}
 
 #using v3
-{% if nexus.download.version %}
+{% if nexus.download.version is defined %}
 include:
   - nexus.v3.install
   - nexus.v3.config
@@ -12,7 +12,7 @@ include:
 {% endif %}
 
 #using v2
-{% if nexus.version %}
+{% if nexus.version is defined %}
 include:
   - nexus.v2.init
 {% endif %}
