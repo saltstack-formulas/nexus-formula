@@ -13,4 +13,4 @@ include:
 {% if nexus.version %}
 include:
   - nexus.v2.init
-{% endif% }
+{% endif %}
