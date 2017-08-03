@@ -6,9 +6,7 @@
 #using v3
 {% if nexus.download.version is defined %}
 include:
-  - nexus.v3.install
-  - nexus.v3.config
-  - nexus.v3.service
+  - nexus.v3.init
 {% endif %}
 
 #using v2

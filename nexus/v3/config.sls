@@ -6,7 +6,7 @@
 nexus_config_setnexusproperties:
   file.managed:
     - name: {{ nexus.install.datapath }}/nexus3/etc/nexus.properties
-    - source: salt://nexus/files/nexus.properties.jinja
+    - source: salt://nexus/v3/files/nexus.properties.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}
@@ -17,7 +17,7 @@ nexus_config_setnexusproperties:
 nexus_config_jetty:
   file.managed:
     - name: {{ nexus.install.path }}/nexus/etc/jetty/jetty-https.xml
-    - source: salt://nexus/files/jetty-https.xml.jinja
+    - source: salt://nexus/v3/files/jetty-https.xml.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}
@@ -28,7 +28,7 @@ nexus_config_jetty:
 nexus_config_rc:
   file.managed:
     - name: {{ nexus.install.path }}/nexus/bin/nexus.rc
-    - source: salt://nexus/files/nexus.rc.jinja
+    - source: salt://nexus/v3/files/nexus.rc.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}
@@ -39,7 +39,7 @@ nexus_config_rc:
 nexus_config_vmoptions:
   file.managed:
     - name: {{ nexus.install.path }}/nexus/bin/nexus.vmoptions
-    - source: salt://nexus/files/nexus.vmoptions.jinja
+    - source: salt://nexus/v3/files/nexus.vmoptions.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}
@@ -55,7 +55,7 @@ nexus_add_bashrc_homedirectory:
 nexus_config_rcfile:
   file.managed:
     - name: {{ nexus.install.path }}/nexus/bin/nexus.rc
-    - source: salt://nexus/files/nexus.rc.jinja
+    - source: salt://nexus/v3/files/nexus.rc.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}

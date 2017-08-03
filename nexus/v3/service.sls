@@ -6,7 +6,7 @@
 nexus_service_init:
   file.managed:
     - name: '/etc/systemd/system/nexus.service'
-    - source: salt://nexus/files/nexus.service.jinja
+    - source: salt://nexus/v3/files/nexus.service.jinja
     - template: jinja
     - context:
       nexus: {{nexus|yaml}}

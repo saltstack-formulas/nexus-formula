@@ -69,7 +69,7 @@ add-state-directories:
 /etc/init.d/nexus:
   file.managed:
     - mode: 755
-    - source: salt://nexus/files/nexus.init
+    - source: salt://nexus/v2/files/nexus.init
     - template: jinja
     - context:
       nexus_home: {{ nexus.home }}
@@ -79,7 +79,7 @@ add-state-directories:
 {{ nexus.home }}/conf/nexus.properties:
   file.managed:
     - mode: 755
-    - source: salt://nexus/files/nexus.properties
+    - source: salt://nexus/v2/files/nexus.properties
     - template: jinja
     - context:
       nexus_home: {{ nexus.home }}
