@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-
-{% if nexus.download.version %}
 {% import_yaml 'nexus/v3/defaults.yaml' as default_settings %}
-{% endif %}
 
 {% set nexus = salt['pillar.get'](
         'nexus',
