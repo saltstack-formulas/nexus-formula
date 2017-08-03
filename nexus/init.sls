@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+{% from "nexus/map.jinja" import nexus with context %}
+
 #using v3
 {% if nexus.download.version %}
 include:
