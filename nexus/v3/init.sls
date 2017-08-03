@@ -2,7 +2,7 @@
 # vim: ft=sls
 
 include:
-  - nexus.install
-  - nexus.config
-  - nexus.service
+  - nexus.v3.install
+  - nexus.v3.config
+  - nexus.v3.service
   
