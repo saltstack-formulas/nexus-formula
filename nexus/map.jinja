@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% import_yaml 'nexus/v3/defaults.yaml' as default_settings %}
+
+{% set nexus = salt['pillar.get'](
+        'nexus',
+        default=default_settings.nexus,
+        merge=True
+    )
+%}

@@ -1,0 +1,17 @@
+# Jetty section
+application-port= {{ nexus.file.nexus.properties.applicationport }}
+ {% if nexus.file.nexus.properties.applicationportssl is defined %}
+     application-port-ssl= {{ nexus.file.nexus.properties.applicationportssl }}
+ {% endif %}
+application-host={{ nexus.file.nexus.properties.applicationhost }}
+ {% if nexus.file.nexus.properties.applicationportssl is defined %}
+    nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-http-redirect-to-https.xml
+ {% else %}
+    nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml
+ {% endif %}
+nexus-context-path={{ nexus.file.nexus.properties.nexuscontextpath }}
+
+# Nexus section
+# nexus-edition=nexus-pro-edition
+# nexus-features=\
+#  nexus-pro-feature

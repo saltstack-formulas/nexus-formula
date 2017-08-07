@@ -1,0 +1,89 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+nexus:
+  download:
+  #version is only used for creating the directories. 
+    version: '3.4.0-02'
+  #add the http download path
+    httppath: 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.4.0-02-unix.tar.gz'
+  #add the hash, you can use ASC, SHA1, and MD5 as provided via sonatype
+    hash: 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.4.0-02-unix.tar.gz.sha1'
+  #add the path where the nexus archiv should be downloaded and extracted to.
+    hostpath: '/home/nexus/download'
+  #add if copylivedata is used as a state
+  datacopy:
+  #the user used for scp access
+    originuser: 'root'
+  #the origin host to copy the data from
+    originhost: 'nexus-inc-01'
+  #the origin path where the data is from e.g. /opt/sonatype-work
+    originpath: '/srv/nexus-data'
+  #add the install path
+  install:
+  # only add e.g. /opt no trailing /
+    path: '/opt'
+  # add the datapath /opt/sonatype-work no trailing /
+    datapath: '/opt/sonatype-work'
+  user:
+  # generate a system user with the name 'nexus'
+    name: 'nexus'
+  # generate a system group with the name 'nexus'
+    group: 'nexus'
+  # add the environmentvariable for NEXUS_HOME to the symlink
+    environmentvariable: 'NEXUS_HOME="/opt/nexus"'
+  # generate the home folder.
+    home: '/home/nexus'
+  file:
+    nexus:
+  # change the 'nexus.properties' file in /opt/sonatype-work/etc/nexus.properties
+      properties:
+  # non https port
+        applicationport: '8081'
+  # https port, if set, automatically will start with https
+        applicationportssl: '8443'
+  # sets applicationhost     
+        applicationhost: '0.0.0.0'
+  # sets nexuscontextpath
+        nexuscontextpath: '/'
+      jetty:
+  # configure the jetty file
+        https:
+  # add the keystorename without '.jks' 
+          keystorepath: 'dummy'
+  # add the keystorepassword which is used for the self signed certificate
+          keystorepassword: 'dummy1234'
+  # add the keystoremanagerpassword, which is used for creating new certificates in the java keystore
+          keymanagerpassword: 'dummy1234'
+  # add truststorepath
+          truststorepath: 'dummy'
+  # add truststorepassword
+          truststorepassword: 'dummy'
+  # following informations used for generating self signed certificate
+          certificate:
+            commonname: 'dummy'
+            ou: 'dummy'
+            organisation: 'dummy'
+            country: 'AT'
+  # set run option in 'nexus.rc'
+      rc:
+        runasuser: 'nexus'
+  # configure java options in 'nexus.vmoptions'
+      vmoptions:
+        addjavavariables:
+          - 'Xms1200M'
+          - 'Xmx1200M'
+          - 'XX:MaxDirectMemorySize=2G'
+          - 'XX:+UnlockDiagnosticVMOptions'
+          - 'XX:+UnsyncloadClass'
+          - 'XX:+LogVMOutput'
+          - 'XX:LogFile=../sonatype-work/nexus3/log/jvm.log'
+          - 'Djava.net.preferIPv4Stack=true'
+          - 'Dkaraf.home=.'
+          - 'Dkaraf.base=.'
+          - 'Dkaraf.etc=etc/karaf'
+          - 'Djava.util.logging.config.file=etc/karaf/java.util.logging.properties'
+          - 'Dkaraf.data=../sonatype-work/nexus3'
+          - 'Djava.io.tmpdir=../sonatype-work/nexus3/tmp'
+          - "Dkaraf.s'tartLocalConsole=false"
+          - 'Djava.util.prefs.userRoot=/home/nexus/.java'
+        
