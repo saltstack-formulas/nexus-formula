@@ -2,6 +2,9 @@
 # vim: ft=sls
 {% from "nexus/map.jinja" import nexus with context %}
 
+include:
+  - nexus.v3.service.sls
+
 nexus_prepare_copy_livedata:
   cmd.run:
     - name: 'rm -rf {{ nexus.install.datapath }}/nexus3/*/'
@@ -11,6 +14,8 @@ nexus_copy_livedata:
   cmd.run:
     - name: 'rsync -av {{ nexus.datacopy.originuser }}@{{ nexus.datacopy.originhost }}:{{ nexus.datacopy.originpath }}/ {{ nexus.install.datapath }}/nexus3/'
     - unless: 'test -f {{ nexus.download.hostpath }}/copied-{{ nexus.download.version }}.txt'
+    - require:
+      - cmd: nexus_prepare_copy_livedata
 
 nexus_finish_copy_livedata:
   file.touch:
@@ -31,3 +36,5 @@ nexus_datapath_take_ownership:
       - group
     - require:
       - file: nexus_finish_copy_livedata
+    - watch_in:
+      - service: nexus_service__service
