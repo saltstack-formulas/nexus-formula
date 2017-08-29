@@ -2,9 +2,6 @@
 # vim: ft=sls
 {% from "nexus/map.jinja" import nexus with context %}
 
-include:
-  - nexus.v3.service.sls
-
 nexus_prepare_copy_livedata:
   cmd.run:
     - name: 'rm -rf {{ nexus.install.datapath }}/nexus3/*/'
