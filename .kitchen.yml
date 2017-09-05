@@ -26,7 +26,7 @@ suites:
           base:
             '*':
               - nexus
-        init.sls:
+        nexus.sls:
           nexus:
             version: '2'
   - name: version-3
@@ -36,7 +36,7 @@ suites:
           base:
             '*':
               - nexus
-        init.sls:
+        nexus.sls:
           nexus:
             download:
               version: '3'
