@@ -17,6 +17,10 @@ platforms:
   - name: debian-jessie
     driver_config:
       run_command: /sbin/init
+    attributes:
+     java:
+      install_flavor: oracle
+      jdk_version: 8
 
 suites:
   - name: default
