@@ -10,6 +10,9 @@ application-host={{ nexus.file.nexus.properties.applicationhost }}
     nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml
  {% endif %}
 nexus-context-path={{ nexus.file.nexus.properties.nexuscontextpath }}
+{% if nexus.file.nexus.properties.sessiontimeout is defined %}
+shiro.globalSessionTimeout= {{ nexus.file.nexus.properties.sessiontimeout }}
+{% endif %}
 
 # Nexus section
 # nexus-edition=nexus-pro-edition
