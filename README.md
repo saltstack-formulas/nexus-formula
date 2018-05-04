@@ -1,5 +1,5 @@
 # Nexus OSS Repository Saltstack Formula
-This Saltstack formula will install Nexus OSS Repository onto any linux (tested with debian jessie).
+This Saltstack formula will install Nexus OSS Repository onto any linux (tested with debian jessie, CentOS 5,6,7).
 
 **Requires Nexus Sonatype Version 3 and above.**
 
@@ -21,7 +21,7 @@ In your formula matching sls just add
 Questions regarding "how to configure nexus" take a look at the sonatype documentation website. http://books.sonatype.com/nexus-book/reference3/index.html
 
 ## Prerequisites
-1.) Requires Java
+1.) Requires Java JRE
 
 2.) Knowledge in Nexus OSS
 
@@ -33,7 +33,7 @@ There is also `nexus.v3.copylivedata` which will copy data from another host, to
 Needs an existing ssh key on the host system.
 
 ## Defaults
-1.) HTTPS will be configured and a self signed certificate is going to be created.
+1.) HTTPS will be configured and a self signed certificate is going to be created if `applicationportssl` is uncommented.
 
 2.) The passwords for the java keystore is **neither encrypted nor obscured** in the `jetty-https.xml`.
 
@@ -53,7 +53,7 @@ Nexus OSS can be installed anywhere on linux. Per default it will be installed o
 
 `nexus-versionnumber` is created while extracting, can be set via `install.path` in pillar
 
-`sonatype-work` is created while extracting, can be set via `install.datapath` in pillar
+`sonatype-work` is created while extracting, can be set via `install.datapath` in pillar symlink in `install.path` will be created
 
 ### Configurationfiles
 The following file will be created and modified via salt
@@ -82,9 +82,6 @@ Formula to set up and configure a Sonatype Nexus server.
         local:
             - ``nexus``
 
-Downloads the tarball in version nexus:version (currently defaults to 2.8.0) from sonatype configured as either a pillar or grain. 
-Then unpacks the archive into nexus:prefix (defaults to /srv/nexus).
-Depends on the sun-java-formula for its JDK.
-
-Tested on RedHat/CentOS 5.X or RedHat/CentOS 6.X.
-
+Downloads the tarball in version nexus:version (currently defaults to 3.11.0-01) from sonatype configured as either a pillar or grain. 
+Then unpacks the archive into nexus:prefix (defaults to /opt/nexus).
+Depends on the sun-java-formula for its JDK/JRE. Tested with jre1.8.0_172.
