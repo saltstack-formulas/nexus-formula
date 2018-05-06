@@ -20,9 +20,11 @@ nexus:
     home: '/home/nexus'
   file:
     nexus:
+      limit: '65536'
       properties:
         applicationport: '8081'
-        applicationportssl: '8443'
+        # By uncommenting 'applicationportssl' Enabling this will start jetty in SSL mode
+        #applicationportssl: '8443'
         applicationhost: '0.0.0.0'
         nexuscontextpath: '/'
         nexusfeatures:

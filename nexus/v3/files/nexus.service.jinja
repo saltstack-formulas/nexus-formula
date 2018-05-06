@@ -4,6 +4,7 @@ After=network.target
 
 [Service]
 Type=forking
+LimitNOFILE={{ nexus.file.nexus.limit }}
 ExecStart={{ nexus.install.path }}/nexus/bin/nexus start
 ExecStop={{ nexus.install.path }}/nexus/bin/nexus stop
 User={{ nexus.user.name }}

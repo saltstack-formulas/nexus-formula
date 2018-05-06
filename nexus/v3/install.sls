@@ -43,7 +43,7 @@ nexus_install_nexus:
 {% if not salt['file.directory_exists' ]('{{ nexus.install.datapath }}') %}
 nexus_install_data:
   cmd.run:
-    - name: 'cp -R {{ nexus.download.hostpath }}/sonatype-work {{ nexus.install.path }}'
+    - name: 'cp -R {{ nexus.download.hostpath }}/sonatype-work {{ nexus.install.datapath }}'
     - require:
       - archive: nexus_extract_home_download
     - unless: 'test -f {{ nexus.install.datapath }}/nexus3/etc/nexus.properties'
@@ -78,6 +78,15 @@ nexus_install_opt_nexus_takeownership:
       - group
 {% endif %}
 
+nexus_install_takeownership_datapath:
+  file.directory:
+    - name: {{ nexus.install.datapath }}
+    - user: {{ nexus.user.name }}
+    - group: {{ nexus.user.group }}
+    - recurse:
+      - user
+      - group
+
 {% if not salt['file.directory_exists' ]('{{ nexus.install.path }}/nexus') %}
 symlink:
   file.symlink:
@@ -89,10 +98,21 @@ symlink:
     - file_mode: 644
 {% endif %}
 
-{% if nexus.file.nexus.properties.applicationportssl %}
+{% if not salt['file.directory_exists' ]('{{ nexus.install.path }}/sonatype-work') %}
+data-symlink:
+  file.symlink:
+    - name: {{ nexus.install.path }}/sonatype-work
+    - target: {{ nexus.install.datapath }}
+    - user: {{ nexus.user.name }}
+    - group: {{ nexus.user.group }}
+    - dir_mode: 755
+    - file_mode: 644
+{% endif %}
+
+{% if nexus.file.nexus.properties.applicationportssl is defined %}
 nexus_create_javakeystore:
   cmd.run:
-    - name: 'keytool -genkey -keyalg RSA -alias jetty -keystore {{ nexus.install.path }}/nexus/etc/ssl/{{ nexus.file.nexus.jetty.https.keystorepath }}.jks -storepass {{ nexus.file.nexus.jetty.https.keymanagerpassword }} -validity 720 -keysize 2048 -dname "cn={{ nexus.file.nexus.jetty.https.certificate.commonname }}, ou= {{ nexus.file.nexus.jetty.https.certificate.ou }}, o={{ nexus.file.nexus.jetty.https.certificate.organisation }}, c={{ nexus.file.nexus.jetty.https.certificate.country }}" -keypass {{ nexus.file.nexus.jetty.https.keystorepassword }}'
+    - name: '{{ nexus.java.home }}/bin/keytool -genkey -keyalg RSA -alias jetty -keystore {{ nexus.install.path }}/nexus/etc/ssl/{{ nexus.file.nexus.jetty.https.keystorepath }}.jks -storepass {{ nexus.file.nexus.jetty.https.keymanagerpassword }} -validity 720 -keysize 2048 -dname "cn={{ nexus.file.nexus.jetty.https.certificate.commonname }}, ou={{ nexus.file.nexus.jetty.https.certificate.ou }}, o={{ nexus.file.nexus.jetty.https.certificate.organisation }}, c={{ nexus.file.nexus.jetty.https.certificate.country }}" -keypass {{ nexus.file.nexus.jetty.https.keystorepassword }}'
     - require:
       - file: symlink
     - unless: test -f {{ nexus.install.path }}/nexus/etc/ssl/{{ nexus.file.nexus.jetty.https.keystorepath }}.jks

@@ -1,15 +1,17 @@
-# -*- coding: utf-8 -*-
-# vim: ft=yaml
+# Requires: https://github.com/saltstack-formulas/nexus-formula
 nexus:
+  java:
+  #JAVA_HOME for bin/keytool
+    home: '/usr/lib/java'
   download:
   #version is only used for creating the directories. 
-    version: '3.4.0-02'
+    version: '3.11.0-01'
   #add the http download path
-    httppath: 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.4.0-02-unix.tar.gz'
+    httppath: 'https://sonatype-download.global.ssl.fastly.net/repository/repositoryManager/3/nexus-3.11.0-01-unix.tar.gz'
   #add the hash, you can use ASC, SHA1, and MD5 as provided via sonatype
-    hash: 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.4.0-02-unix.tar.gz.sha1'
+    hash: 'http://download.sonatype.com/nexus/3/latest-unix.tar.gz.sha1'
   #add the path where the nexus archiv should be downloaded and extracted to.
-    hostpath: '/home/nexus/download'
+    hostpath: '/tmp/download'
   #add if copylivedata is used as a state
   datacopy:
   #the user used for scp access
@@ -23,7 +25,7 @@ nexus:
   # only add e.g. /opt no trailing /
     path: '/opt'
   # add the datapath /opt/sonatype-work no trailing /
-    datapath: '/opt/sonatype-work'
+    datapath: '/srv/sonatype-work'
   user:
   # generate a system user with the name 'nexus'
     name: 'nexus'
@@ -35,12 +37,14 @@ nexus:
     home: '/home/nexus'
   file:
     nexus:
+  # Limits on the number of file descriptors
+      limit: '65536'
   # change the 'nexus.properties' file in /opt/sonatype-work/etc/nexus.properties
       properties:
   # non https port
         applicationport: '8081'
   # https port, if set, automatically will start with https
-        applicationportssl: '8443'
+      # applicationportssl: '8443'
   # sets applicationhost     
         applicationhost: '0.0.0.0'
   # sets nexuscontextpath
@@ -49,13 +53,13 @@ nexus:
   # configure the jetty file
         https:
   # add the keystorename without '.jks' 
-          keystorepath: 'dummy'
+          keystorepath: "keystore"
   # add the keystorepassword which is used for the self signed certificate
-          keystorepassword: 'dummy1234'
+          keystorepassword: 'dummy'
   # add the keystoremanagerpassword, which is used for creating new certificates in the java keystore
-          keymanagerpassword: 'dummy1234'
+          keymanagerpassword: 'dummy'
   # add truststorepath
-          truststorepath: 'dummy'
+          truststorepath: "truststore"
   # add truststorepassword
           truststorepassword: 'dummy'
   # following informations used for generating self signed certificate
@@ -63,7 +67,7 @@ nexus:
             commonname: 'dummy'
             ou: 'dummy'
             organisation: 'dummy'
-            country: 'AT'
+            country: 'ZZ'
   # set run option in 'nexus.rc'
       rc:
         runasuser: 'nexus'
@@ -84,6 +88,5 @@ nexus:
           - 'Djava.util.logging.config.file=etc/karaf/java.util.logging.properties'
           - 'Dkaraf.data=../sonatype-work/nexus3'
           - 'Djava.io.tmpdir=../sonatype-work/nexus3/tmp'
-          - "Dkaraf.s'tartLocalConsole=false"
+          - 'Dkaraf.startLocalConsole=false'
           - 'Djava.util.prefs.userRoot=/home/nexus/.java'
-        
