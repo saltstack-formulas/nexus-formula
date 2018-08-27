@@ -1,51 +1,28 @@
 ---
 driver:
-  name: docker
-  use_sudo: false
-  privileged: true
+  name: vagrant
 
+platforms:
+  - name: testing
+      
 provisioner:
   name: salt_solo
-  require_chef: false
   formula: nexus
   state_top:
     base:
       '*':
         - nexus
-
-platforms:
-  - name: debian-jessie
-    driver_config:
-      run_command: /sbin/init
-    attributes:
-     java:
-      install_flavor: oracle
-      jdk_version: 8
-
+  pillars-from-files:
+    nexus.sls: pillar-v3.example
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - nexus
+verifier:
+  name: inspec
+  
 suites:
   - name: default
-    provisioner:
-      pillars:
-        top.sls:
-          base:
-            '*':
-              - nexus
-        nexus.sls:
-          nexus:
-            version: '2'
-  - name: version-3
-    provisioner:
-      pillars:
-        top.sls:
-          base:
-            '*':
-              - nexus
-        nexus.sls:
-          nexus:
-            download:
-              version: '3'
-
-verifier:
-  name: shell
-  remote_exec: false
-  command: testinfra -vvv --connection=docker --hosts=root@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
+    inspec_tests:
+      - test/integration/default
