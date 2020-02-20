@@ -53,6 +53,8 @@ nexus_mark_version_as_installed:
   cmd.run:
     - name: 'touch {{ nexus.download.hostpath }}/nexus-{{ nexus.download.version }}.txt'
     - unless: 'test -f {{ nexus.download.hostpath }}/nexus-{{ nexus.download.version }}.txt'
+    - require:
+      - archive: nexus_extract_home_download
 
 nexus_install_opt_sonatype_etc:
     file.directory:
