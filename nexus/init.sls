@@ -3,14 +3,16 @@
 
 {% from "nexus/map.jinja" import nexus with context %}
 
-#using v3
-{% if nexus.download.version is defined %}
 include:
+
+{% set major_version = nexus.download.version %}
+
+#using v3
+{% if major_version[0] == '3'  %}
   - nexus.v3.init
 {% endif %}
 
 #using v2
-{% if nexus.version is defined %}
-include:
+{% if major_version[0] == '2'  %}
   - nexus.v2.init
 {% endif %}

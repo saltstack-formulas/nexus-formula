@@ -26,6 +26,11 @@ nexus:
     path: '/opt'
   # add the datapath /opt/sonatype-work no trailing /
     datapath: '/srv/sonatype-work'
+  plugins:
+    nexus_repository_apt:
+  # The plugin's path to download to the minion, this can be hosted on either the salt master server (salt://), the salt minion local file system (/), or on an HTTP or FTP server (http(s)://, ftp://)
+      path: '/tmp/nexus-repository-apt-1.0.5.jar'
+      version:'1.0.5'
   user:
   # generate a system user with the name 'nexus'
     name: 'nexus'
