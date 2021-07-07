@@ -1,0 +1,28 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: testing
+      
+provisioner:
+  name: salt_solo
+  formula: nexus
+  state_top:
+    base:
+      '*':
+        - nexus
+  pillars-from-files:
+    nexus.sls: pillar-v3.example
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - nexus
+verifier:
+  name: inspec
+  
+suites:
+  - name: default
+    inspec_tests:
+      - test/integration/default

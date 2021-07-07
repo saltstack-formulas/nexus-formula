@@ -30,6 +30,8 @@ nexus_extract_home_download:
     - keep: True
     - archive_format: tar
     - if_missing: {{ nexus.download.hostpath }}/nexus-{{ nexus.download.version }}.txt
+    - require:
+      - file: nexus_create_download_folder
 
 {% if not salt['file.directory_exists' ]('{{ nexus.install.path }}/nexus-{{ nexus.download.version }}') %}
 nexus_install_nexus:
